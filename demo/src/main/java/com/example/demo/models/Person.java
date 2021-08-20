@@ -1,0 +1,77 @@
+package com.example.demo.models;
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
+
+@Entity
+public class Person {
+
+	@Id
+	@GeneratedValue
+	@Column(name="person_id")
+	private int id;
+	
+	@Column(name="name")
+	private String name;
+	
+	@Column(name="age")
+	private int age;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy="person")
+	private List<Telefone>listaTelefones;
+	
+	public Person() {
+		
+	}
+
+	public Person(int id, String name, int age) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public List<Telefone> getListaTelefones() {
+		return listaTelefones;
+	}
+
+	public void setListaTelefones(List<Telefone> listaTelefones) {
+		this.listaTelefones = listaTelefones;
+	}
+	
+	
+	
+}

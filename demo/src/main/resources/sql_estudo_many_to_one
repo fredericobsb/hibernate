@@ -1,0 +1,21 @@
+* PARA INSERIR UMA PESSOA:
+
+localhost:8080 com POST
+
+{
+	"age":30,
+    "name":"fred"
+}
+
+* para inserir telefones - post
+
+{
+	"numero":61995650322,
+	person: {
+				"id": 1
+			}
+}
+
+{
+	"numero":66995652233
+}
