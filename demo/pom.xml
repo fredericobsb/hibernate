@@ -36,13 +36,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- JACKSON DEPENDENCIA PROBLEMATICA -->
 		<dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-annotations</artifactId>
-    <version>2.6.4</version>
-</dependency>
-
-
+    		<groupId>com.fasterxml.jackson.core</groupId>
+    		<artifactId>jackson-databind</artifactId>
+		</dependency>
+		
+		<!-- FIM JACKSON DEPENDENCIA PROBLEMATICA -->
 	</dependencies>
 
 	<build>
