@@ -17,17 +17,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.models.Person;
+import com.example.demo.models.Telefone;
 import com.example.demo.repository.PersonRepository;
+import com.example.demo.repository.TelefoneRepository;
 
 @RestController
 @RequestMapping(path="/persons")
 public class PersonResource {
 	
 	private PersonRepository personRepository;
+	private TelefoneRepository telefoneRepository;
 	
-	public PersonResource(PersonRepository personRepository) {
+	public PersonResource(PersonRepository personRepository, TelefoneRepository telefoneRepository) {
 		super();
 		this.personRepository = personRepository;
+		this.telefoneRepository = telefoneRepository;
 	}
 	
 	@PostMapping

@@ -19,3 +19,21 @@ localhost:8080 com POST
 {
 	"numero":66995652233
 }
+
+* para inserir pessoa com telefones
+
+{
+	"age":30,
+    "name":"fred",
+    "listaTelefones":[
+       {
+    	"id":"1",
+    	"numero": "6199999999"
+       },
+       {
+    	"id":"2",
+    	"numero": "6188888888"
+       }
+    ]
+}
+
