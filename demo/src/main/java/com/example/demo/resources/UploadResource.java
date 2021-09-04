@@ -1,13 +1,6 @@
 package com.example.demo.resources;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,15 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.example.demo.models.Arquivo;
 import com.example.demo.repository.ArquivoRepository;
-import com.example.demo.repository.TelefoneRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @Controller
@@ -49,9 +38,10 @@ private final Path rootLocation = Paths.get("C:\\Users\\fred\\Documents\\pdfjava
 	@PostMapping("/savefile")
 	public ResponseEntity<byte[]>save(@RequestParam("file") MultipartFile file,
 			RedirectAttributes redirectAttributes) {
-		Arquivo arquivo = null;
 		String message;
+		Arquivo arquivo = null;
 		ByteArrayOutputStream baos = null;
+		Blob blob = null;
 		String nome = String.valueOf(Math.random() * 1000).substring(0, 3) + ".pdf";
 		try {
 	         try {
@@ -62,28 +52,18 @@ private final Path rootLocation = Paths.get("C:\\Users\\fred\\Documents\\pdfjava
 	            Integer  b = Integer.parseInt(a);
 	            byte[] array = new byte[b];
 	            file.getInputStream().read(array);
-	            arquivo.setBytes(array);
-	            arquivo = this.arquivoRepository.save(arquivo);
-	            //reescrevendo o pdf apos ser salvo no banco
-	            nome = "SAIDA_" + String.valueOf(Math.random() * 1000).substring(0, 3) + ".pdf";
 	            baos = new ByteArrayOutputStream();
-	            baos.write(arquivo.getBytes());
-	            InputStream isFromFirstData = new ByteArrayInputStream(baos.toByteArray()); 
-	            Files.copy(isFromFirstData, this.rootLocation.resolve(nome));
-	            
-	            byte[] contents = arquivo.getBytes();
-	            Blob blob = new SerialBlob(baos.toByteArray());
-	            InputStream isFromFirstData2 = new ByteArrayInputStream(blob.getBytes(1, baos.toByteArray().length)); 
-	            nome = "SAIDA_" + String.valueOf(Math.random() * 1000).substring(0, 3) + ".pdf";
-	            Files.copy(isFromFirstData2, this.rootLocation.resolve(nome));
-	            arquivo.setBlob(blob);
+	            baos.write(array);
+	            blob = new SerialBlob(baos.toByteArray());
+	            arquivo.setBytes(blob.getBytes(1, baos.toByteArray().length));
+	            this.arquivoRepository.save(arquivo);
 	         } catch (Exception e) {
 	            throw new RuntimeException("FAIL!");
 	         }
 	         files.add(file.getOriginalFilename());
 
 	         message = "Successfully uploaded!";
-	         return ResponseEntity.status(HttpStatus.OK).body(arquivo.getBlob().getBytes(1, baos.toByteArray().length));
+	         return ResponseEntity.status(HttpStatus.OK).body(blob.getBytes(1, baos.toByteArray().length));
 	      } catch (Exception e) {
 	         message = "Failed to upload!";
 	         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
