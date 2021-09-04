@@ -56,14 +56,14 @@ private final Path rootLocation = Paths.get("C:\\Users\\fred\\Documents\\pdfjava
 	            baos.write(array);
 	            blob = new SerialBlob(baos.toByteArray());
 	            arquivo.setBytes(blob.getBytes(1, baos.toByteArray().length));
-	            this.arquivoRepository.save(arquivo);
+	            arquivo = this.arquivoRepository.save(arquivo);
 	         } catch (Exception e) {
 	            throw new RuntimeException("FAIL!");
 	         }
 	         files.add(file.getOriginalFilename());
 
 	         message = "Successfully uploaded!";
-	         return ResponseEntity.status(HttpStatus.OK).body(blob.getBytes(1, baos.toByteArray().length));
+	         return ResponseEntity.status(HttpStatus.OK).body(arquivo.getBytes());
 	      } catch (Exception e) {
 	         message = "Failed to upload!";
 	         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
