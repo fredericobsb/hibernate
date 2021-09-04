@@ -25,7 +25,4 @@ public class Arquivo {
 	@Lob
 	@Column(name="arquivo_conteudo")
 	private byte[]  bytes;
-	
-	@Transient
-	private Blob blob;
 }
