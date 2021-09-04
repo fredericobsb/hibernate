@@ -1,16 +1,19 @@
 package com.example.demo.models;
 
-import java.io.File;
+import java.sql.Blob;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Transient;
 
-import org.assertj.core.internal.Bytes;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Arquivo {
 
@@ -22,20 +25,7 @@ public class Arquivo {
 	@Lob
 	@Column(name="arquivo_conteudo")
 	private byte[]  bytes;
-
-	public byte[] getBytes() {
-		return bytes;
-	}
-
-	public void setBytes(byte[] bytes) {
-		this.bytes = bytes;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
+	@Transient
+	private Blob blob;
 }
