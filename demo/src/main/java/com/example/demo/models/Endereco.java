@@ -27,7 +27,7 @@ public class Endereco {
     @Column(name = "bairro")
     private String bairro;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 }
