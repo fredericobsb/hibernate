@@ -24,7 +24,13 @@ public class Empresa {
     @GeneratedValue
     private int id;
 
-    private String nome;
+    private String nomeEmpresa;
+    
+    private String razaoSocial;
+    
+    private String cnpj;
+    
+    private TipoEmpresa tipoEmpresa;
     
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
     private Collection<EmpresaPessoa> empresaPessoaList;
