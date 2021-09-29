@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/* MANY TO MANY ONIDIRECIONAL */
 @Getter
 @Setter
 @Entity
